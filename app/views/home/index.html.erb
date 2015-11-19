@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Campaigns</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>User</th>
+      <th>Title</th>
+      <th>Goal</th>
+      <th>Pledged</th>
+      <th>Pledgers</th>
+      <th>Ends</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @campaigns.each do |campaign| %>
+      <tr>
+        <td><%= image_tag campaign.image, size: "50x50" %></td>
+        <td><%= link_to campaign.user.username, campaign.user %></td>
+        <td><%= link_to campaign.title, campaign %></td>
+        <td>$<%= number_with_delimiter(campaign.goal) %></td>
+        <td>$<%= number_with_delimiter(campaign.pledged) %></td>
+        <td>
+          <ul>
+          <% Pledge.includes(:user).where(campaign: campaign).each do |pledge| %>
+            <li>
+              <%= pledge.user.username%> gave $<%= number_with_delimiter(pledge.pledge) %>
+            </li>
+          <% end %>
+          </ul>
+        </td>
+        <td><%= campaign.end_at.strftime("%B %-d, %Y") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

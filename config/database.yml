@@ -1,0 +1,5 @@
+development:
+  adapter: postgresql
+  database: fundmonster_development
+  host: localhost
+  port: 5432
