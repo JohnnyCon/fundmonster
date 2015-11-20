@@ -1,29 +1,53 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>User:</strong>
-  <%= @campaign.user %>
-</p>
+<div class="row">
+  <h3 style="text-align:center;"><%= @campaign.title %></h3>
+  <hr>
 
-<p>
-  <strong>Title:</strong>
-  <%= @campaign.title %>
-</p>
 
-<p>
-  <strong>Goal:</strong>
-  <%= @campaign.goal %>
-</p>
+  <div class="columns small-6">
+    <%= image_tag @campaign.image %>
+  </div>
 
-<p>
-  <strong>Pledged:</strong>
-  <%= @campaign.pledged %>
-</p>
+  <div class="columns small-6">
+    <p>
+      <strong>Description</strong><br>
+      <%= @campaign.description %>
+    </p>
 
-<p>
-  <strong>End at:</strong>
-  <%= @campaign.end_at %>
-</p>
+    <p>
+      <strong>Goal</strong><br>
+      $<%= number_with_delimiter(@campaign.goal) %>
+    </p>
 
-<%= link_to 'Edit', edit_campaign_path(@campaign) %> |
-<%= link_to 'Back', campaigns_path %>
+    <p>
+      <strong>Pledged</strong><br>
+      $<%= number_with_delimiter(@campaign.pledged) %>
+    </p>
+
+    <p>
+      <strong>Ends on</strong><br>
+      <%= @campaign.end_at.strftime("%B %-d, %Y") %>
+    </p>
+
+  </div>
+
+  <hr>
+</div>
+
+
+<div class="row">
+  <h4 style="text-align:center;">Backers</h4>
+
+  <% @campaign.pledges.each do |pledge| %>
+  <div class="panel callout radius">
+    <p>
+      <!-- <%= image_tag pledge.user.avatar, size: "50x50" %>  -->
+      <%= pledge.user.username %> gave <strong>$<%= number_with_delimiter(pledge.pledge) %></strong>
+    </p>
+  </div>
+  <% end %>
+
+
+
+</div>

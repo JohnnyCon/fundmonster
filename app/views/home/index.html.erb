@@ -24,13 +24,7 @@
         <td>$<%= number_with_delimiter(campaign.goal) %></td>
         <td>$<%= number_with_delimiter(campaign.pledged) %></td>
         <td>
-          <ul>
-          <% Pledge.includes(:user).where(campaign: campaign).each do |pledge| %>
-            <li>
-              <%= pledge.user.username%> gave $<%= number_with_delimiter(pledge.pledge) %>
-            </li>
-          <% end %>
-          </ul>
+          ...
         </td>
         <td><%= campaign.end_at.strftime("%B %-d, %Y") %></td>
       </tr>
